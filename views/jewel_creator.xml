@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="jewel_creator_view_form" model="ir.ui.view">
+      <field name="name">Jewel Creator</field>
+      <field name="model">jewel_creator</field>
+      <field name="arch" type="xml">
+        <form>
+          <group>
+            <field name="template_id"/>
+            <field name="gold_cost"/>
+          </group>
+          <group>
+            <field name="attribute_caratage_id" invisible="1"/>
+            <field name="attribute_weight_id" invisible="1"/>
+            <field name="attribute_labor_id" invisible="1"/>
+            <field name="caratage_id" domain="[('attribute_id.id', '=', attribute_caratage_id)]"
+              widget="selection"/>
+            <field name="weight_id" domain="[('attribute_id.id', '=', attribute_weight_id)]"
+              context="{'default_attribute_id': attribute_weight_id}"/>
+            <field name="labor_id" domain="[('attribute_id.id', '=', attribute_labor_id)]"
+              widget="selection"/>
+          </group>
+          <group>
+            <group>
+              <field name="product_id" invisible="not product_id"/>
+            </group>
+            <group>
+              <div invisible="not product_id" class="text-danger"
+                colspan="2"
+              > The product already exists, this will update cost and price. </div>
+            </group>
+          </group>
+          <group>
+            <field name="waste"/>
+            <field name="utility"/>
+          </group>
+          <group>
+            <field name="cost"/>
+            <field name="price"/>
+          </group>
+          <footer>
+            <button name="create_jewel" string="Create" type="object" class="btn-primary"
+              data-hotkey="q" invisible="product_id"/>
+            <button name="create_jewel" string="Update" type="object" class="btn-primary"
+              data-hotkey="q" invisible="not product_id"/>
+            <button special="cancel" data-hotkey="x" string="Close" class="btn-secondary"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_jewel_creator" model="ir.actions.act_window">
+      <field name="name">Jewel Creator</field>
+      <field name="res_model">jewel_creator</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+    </record>
+
+    <menuitem
+      name="Jewel Creator"
+      action="action_jewel_creator"
+      id="menu_jewel_creator"
+      parent="sale.product_menu_catalog"
+      sequence="40"/>
+
+  </data>
+</odoo>

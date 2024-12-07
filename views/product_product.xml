@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_product_view_form" model="ir.ui.view">
+        <field name="name">product.product.view.form.inherit.jewel</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <field name="lst_price" position="before">
+                <field name="caratage_id" invisible="1"/>
+            </field>
+            <field name="lst_price" position="attributes">
+                <attribute name="readonly">caratage_id</attribute>
+            </field>
+            <field name="standard_price" position="attributes">
+                <attribute name="readonly">caratage_id</attribute>
+            </field>
+            <group name="group_standard_price" position="after">
+                <group name="jewel" string="Jewel">
+                    <field name="gold_cost"/>
+                    <label for="actual_gold_cost" invisible="gold_cost == actual_gold_cost"/>
+                    <div class="o_row" invisible="gold_cost == actual_gold_cost">
+                        <field name="actual_gold_cost"/>
+                        <button name="update_gold_cost" string="Update" type="object"
+                            class="oe_highlight"/>
+                    </div>
+                    <field name="jewel_waste"/>
+                    <field name="jewel_utility"/>
+                    <field name="caratage_id" readonly="1"/>
+                    <field name="weight_id" readonly="1"/>
+                    <field name="labor_id" readonly="1"/>
+                    <!-- Keep the jewel_cost field invisible to launch computation -->
+                    <field name="jewel_cost" invisible="1"/>
+                </group>
+            </group>
+        </field>
+    </record>
+</odoo>
